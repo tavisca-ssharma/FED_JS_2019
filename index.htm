@@ -9,9 +9,9 @@ ul {
   padding: 0;
   width: 10%;
   background-color: #f1f1f1;
-  height: fixed;
-  position: fixed; 
-  overflow: auto; 
+  height: fixed; /* Full height */
+  position: fixed; /* Make it stick, even on scroll */
+  overflow: auto; /* Enable scrolling if the sidenav has too much content */
 }
 form {
   position: relative;
@@ -36,6 +36,7 @@ li a {
   text-decoration: none;
 }
 
+/* Change the link color on hover */
 li a:hover {
   background-color: #555;
   color: white;
@@ -69,5 +70,9 @@ function func(element)
   <input type="text" name="search">
 </form>
 </div>
+<!--<footer>
+    <p>This application have a copyright by @Tavisca</p>
+
+</footer> -->
 </body>
 </html>
