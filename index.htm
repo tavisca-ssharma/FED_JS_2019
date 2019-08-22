@@ -9,9 +9,17 @@ ul {
   padding: 0;
   width: 10%;
   background-color: #f1f1f1;
-  height: fixed;
-  position: fixed; 
-  overflow: auto; 
+  height: fixed; /* Full height */
+  position: fixed; /* Make it stick, even on scroll */
+  overflow: auto; /* Enable scrolling if the sidenav has too much content */
+}
+table {
+  position: relative;
+  border-collapse: collapse;
+  left: 200px;
+}
+td,th{
+  border:1px solid #000000;
 }
 form {
   position: relative;
@@ -36,20 +44,13 @@ li a {
   text-decoration: none;
 }
 
+/* Change the link color on hover */
 li a:hover {
   background-color: #555;
   color: white;
 }
 </style>
-<script>
-function func(element)
-{
-  if(element=='user')
-  document.getElementById('user').removeAttribute("hidden");
-  document.getElementById('user
-  ').setAttribute("color","#000");
-}
-</script>
+<script src="feature.js"></script>
 
 </head>
 <body>
@@ -65,9 +66,35 @@ function func(element)
 </ul>
 </div>
 <div>
-  <form>
-  <input type="text" name="search">
-</form>
+<div>
+  <form id="searchwork">
+    <input type="text" name="input" id="input">
+    <script>
+    autocomplete(document.getElementById("input"), countries);
+  </script>
+    <input type="button" name="add" value="Add" onclick="insRow()">
+    <input type="button" name="search" value="Search">
+  </form>
 </div>
+<div position="absolute"; id="autoPopulate" style="padding-left:200px;" >
+
+</div>
+</div>
+
+<div id="table">
+  <br/><br/>
+  <table id="POITable">
+    <tr id="tr0" style="display:none">
+      <td align="center" id="td0" width="30px">1</td>
+      <td align="center" id="td1" width="90px"><p>Hello</p></td>
+      <td align="center" id="td2" width="90px"><input type="button" id="delbutton" value="Delete" onclick="deleteRow(this)" /></td>
+      <td align="center" id="td3" width="90px"><input type="button" id="editbutton" value="Edit" /></td>
+    </tr>
+  </table>
+</div>
+<!--<footer>
+    <p>This application have a copyright by @Tavisca</p>
+
+</footer> -->
 </body>
 </html>
