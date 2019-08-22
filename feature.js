@@ -1,27 +1,37 @@
-var countries = [];
-function deleteRow(row) {
-  var i = row.parentNode.parentNode.rowIndex;
-  document.getElementById('POITable').deleteRow(i);
-}
-var trid=1;
-var tdid=4;
-function insRow() {
-  var x = document.getElementById('POITable');
-  var new_row = x.rows[0].cloneNode(true);
-  new_row.setAttribute("id","tr"+trid);
-  new_row.style.display="block";
-  var inp1 = document.getElementById('input').value;
-  new_row.cells[0].innerHTML=trid++;
-  new_row.cells[0].setAttribute("id","td"+tdid++);
-  new_row.cells[1].setAttribute("id","td"+tdid++);
-  new_row.cells[2].setAttribute("id","td"+tdid++);
-  new_row.cells[3].setAttribute("id","td"+tdid++);
-  new_row.cells[1].innerHTML = inp1;
-  x.appendChild(new_row);
-  countries.push(inp1);
+function func(elem)
+{
+  var clicked=document.getElementById(elem);
+  var a=document.getElementsByClassName("content")
+  for(i=0;i<a.length;i++)
+    a[i].style.display="none";
+  if(elem==="todo")
+    clicked.style.display="block"
+  else if(elem==="user")
+    clicked.style.display="block"
+  else if(elem==="display")
+    clicked.style.display="block"
+  else if(elem==="logout")
+    clicked.style.display="block"
 }
 
-////////////////////////////////
+function logout()
+{
+  var a=window.close();
+  if(window.closed==false)
+  {
+    var a=document.getElementsByClassName("content")
+    for(i=0;i<a.length;i++)
+      a[i].style.display="none";
+    document.getElementById("todo").style.display="block";
+  }
+}
+
+function hidePrompt()
+{
+  let a = document.getElementsByClassName("itemlist");
+  for (i = 0; i < a.length; i++)
+    a[i].style.display = "none";
+}
 
 
 function autocomplete(inp, arr) {
@@ -39,6 +49,9 @@ function autocomplete(inp, arr) {
       a = document.createElement("DIV");
       a.setAttribute("id", this.id + "autocomplete-list");
       a.setAttribute("class", "autocomplete-items");
+      a.addEventListener("click",function(){autoPopulateClick(a.input.value)});
+
+
       /*append the DIV element as a child of the autocomplete container:*/
       this.parentNode.appendChild(a);
       /*for each item in the array...*/
@@ -89,6 +102,8 @@ function autocomplete(inp, arr) {
         }
       }
   });
+
+
   function addActive(x) {
     /*a function to classify an item as "active":*/
     if (!x) return false;
@@ -99,10 +114,13 @@ function autocomplete(inp, arr) {
     /*add class "autocomplete-active":*/
     x[currentFocus].classList.add("autocomplete-active");
   }
+
+
   function removeActive(x) {
     /*a function to remove the "active" class from all autocomplete items:*/
     for (var i = 0; i < x.length; i++) {
       x[i].classList.remove("autocomplete-active");
+
     }
   }
   function closeAllLists(elmnt) {
@@ -119,4 +137,94 @@ function autocomplete(inp, arr) {
 document.addEventListener("click", function (e) {
     closeAllLists(e.target);
 });
+}
+
+var countries = [];
+function deleteRow(row) {
+  let cellContent1=row.parentNode.parentNode.children[0];
+  let cellContent=row.parentNode.parentNode.children[0].innerHTML;
+  var i = row.parentNode.parentNode.rowIndex;
+  deleteElementFromAutoPopulateArray(cellContent);
+  document.getElementById('POITable').deleteRow(i);
+}
+
+function updateDetail(cell)
+{
+  let cellContent=cell.parentNode.parentNode.cells[0].innerHTML;
+  console.log(cellContent);
+  deleteElementFromAutoPopulateArray(cellContent);
+  var person = prompt("Please Enter your ToDo", "");
+  if (person != null)
+  {
+    cell.parentNode.parentNode.cells[0].innerHTML = person ;
+    countries.push(person);
+  }
+}
+
+function deleteElementFromAutoPopulateArray(cellContent)
+{
+  for(let i=0;i<countries.length;i++)
+  if(countries[i]==cellContent)
+     countries.splice(i,1);
+}
+
+var trid=1;
+var tdid=4;
+var prid=1;
+var pdid=4;
+var count=0;
+
+function searchitem()
+{
+  
+  var inp1 = document.getElementById('input').value;
+  if(inp1=="")
+  {
+    window.alert("Please input some value...")
+    return;
+  }
+  for(let i=0;i<countries.length;i++)
+  {
+    if(inp1===countries[i])
+      count++;
+  }
+
+  var ab=document.querySelector('#DOITable');
+  var x = document.getElementById('DOITable');
+  var y = document.getElementById('podo');
+  var z = document.getElementById('todo');
+  z.style.display="none";
+  y.style.display="block";
+  for(let i=0;i<count;i++)
+  {
+    var new_row = ab.rows[0].cloneNode(true);
+    new_row.setAttribute("id","pr"+prid);
+    new_row.children[0].setAttribute("id","td"+pdid++);
+    new_row.cells[0].innerHTML = inp1;
+    new_row.children[1].innerHTML='<a href="javascript:void(0)" id="editbutton" onclick="updateDetail(this)">Edit</a>';
+    new_row.children[2].innerHTML='<a href="javascript:void(0)" id="delbutton" onclick="deleteRow(this)">Delete</a>';
+    ab.children[0].appendChild(new_row);
+  }
+}
+
+function insRow()
+{
+  var inp1 = document.getElementById('input').value;
+  if(inp1=="")
+  {
+    window.alert("Element to be added in the todo list cannot be empty..")
+    return;
+  }
+  var ab=document.querySelector('#POITable');
+  var x = document.getElementById('POITable');
+  var new_row = ab.rows[0].cloneNode(true);
+  new_row.setAttribute("id","tr"+trid);
+  new_row.children[0].setAttribute("id","td"+tdid++);
+  new_row.children[1].setAttribute("id","td"+tdid++);
+  new_row.children[1].innerHTML='<a href="javascript:void(0)" id="editbutton" onclick="updateDetail(this)">Edit</a>';
+  new_row.children[2].setAttribute("id","td"+tdid++);
+  new_row.children[2].innerHTML='<a href="javascript:void(0)" id="delbutton" onclick="deleteRow(this)">Delete</a>';
+  new_row.cells[0].innerHTML = inp1;
+  ab.children[0].appendChild(new_row);
+  countries.push(inp1);
 }

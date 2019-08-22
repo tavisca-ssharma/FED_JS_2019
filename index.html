@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+      form {
+        display: inline;
+      }
+      form .button {
+        background-color: green;
+        color: white;
+        border-radius:12px;
+        font-size: 17px;
+      }
+      form .button:hover {
+        cursor: pointer;
+      }
+    </style>
+    <script src="feature.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1><u>PROJECT</u></h1>
+    </header>
+    <div class="container">
+      <div class="sideMenuBar">
+        <ul id="myul">
+          <li><a  class="listitems active" href="javascript:void(0)" onclick="return func('todo');"><b>Todo</b></a></li>
+          <li><a  class="listitems" href="javascript:void(0)" onclick="return func('user');"><b>User</b></a></li>
+          <li><a  class="listitems" href="javascript:void(0)" onclick="return func('display');"><b>Display</b></a></li>
+          <li><a  class="listitems" href="javascript:void(0)" onclick="return func('logout');"><b>Logout</b></a></li>
+        </ul>
+      </div>
+      <div class="container-right">
+        <div>
+          <form id="searchwork">
+            <input type="text" name="input" id="input">
+            <script>
+              autocomplete(document.getElementById("input"), countries);
+            </script>
+            <input type="button" class="button" value="Search"id="Search" onclick="searchitem()" >
+            <input type="button" class="button" value="Add" id="Add" onclick="insRow()">
+          </form>
+          <div id="myInputautocomplete-list" class="autocomplete-items" style="width:240px; display: block" ></div>
+        </div>
+        <div id="todo" class="content" style="display: none ;" onfocus="return populateTodoList();" >
+          <div style="overflow-y:auto;">
+            <table id="POITable">
+              <tr id="tr0">
+                <td id="td1"><b>Task</b></td>
+                <td id="td2"><b>Edit</b></td>
+                <td id="td3"><b>Delete</b></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="podo" class="content" style="display: none ;">
+          <div style="overflow-y:auto;">
+            <table id="DOITable">
+              <tr id="pr0">
+                <td id="pd1"><b>Task</b></td>
+                <td id="pd2"><b>Edit</b></td>
+                <td id="pd3"><b>Delete</b></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="user" class="content" style="display: none;" >
+          <p>User Division clicked</p>
+        </div>
+        <div id="display" class="content" style="display: none;">
+          <p>Contact Division clicked</p>
+        </div>
+        <div id="logout" class="content" style="display: none">
+          <p>Logout Division clicked</p>
+        </div>
+      </div>
+    </div>
+    <footer>
+        <h4>Tavisca Solutions Pvt Ltd.</h4>
+    </footer>
+  </body>
+</html>
